@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- TODO: Animate -->
+    <title>the outernet is for the space cowboys</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      html {
+        background-color: black;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        padding: 0;
+	width: 100vw;
+	height: 100vh;
+      }
+      h1 {
+        color: white;
+      }
+      #preamble {
+        font-family: "Lobster";
+      }
+      #outernet {
+        font-family: "Monoton";
+      }
+      .char {
+        opacity: 0.5;
+	text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #0073e6,
+	    0 0 20px #0073e6, 0 0 25px #0073e6, 0 0 30px #0073e6,
+	    0 0 35px #0073e6;
+      }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Monoton" rel="stylesheet">
+  </head>
+  <body>
+    <h1>
+      <span id="preamble">Enter the...</span><br/>
+      <span id="outernet" >
+        <a href="./outernet/">
+          <span class="char">O</span>
+          <span class="char">U</span>
+          <span class="char">T</span>
+          <span class="char">E</span>
+          <span class="char">R</span>
+          <span class="char">N</span>
+          <span class="char">E</span>
+          <span class="char">T</span>
+	</a></span>
+    </h1>
+    <script>
+      const interval_ms = 1000;
+      const nodes = Array.from(document.querySelectorAll('.char'));
+      let activeNodeIndex = 0;
+      const intervalId = window.setInterval(() => {
+        nodes[activeNodeIndex].style.opacity = 0.5;
+        if (activeNodeIndex === (nodes.length - 1)) {
+          activeNodeIndex = 0;
+        } else {
+          activeNodeIndex += 1;
+        }
+        nodes[activeNodeIndex].style.opacity = 1.0;
+      }, interval_ms);
+    </script>
+    <!--
+    <h1><b><i>SEE YOU SPACE COWBOY...</i></b></h1>
+    <p>the <a href="./outernet/">outernet</a> is for the coyotes</p>
+    <marquee direction="left"><a href="./blog/">blog</a></marquee>
+    <marquee direction="right"><a href="https://github.com/kaycebasques/bebop">source code</a></marquee>
+    -->
+  </body>
+</html>

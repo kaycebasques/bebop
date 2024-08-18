@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      img {
+        max-width: 100%;
+      }
+      video {
+        max-width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <section>
+      <h1>Blog</h1>
+      <p>
+        Howdy. Welcome. This is the eng blog for <code>bebop.nekoweb.org</code>.
+	I.e. on this blog I just talk about how I created <code>bebop.nekoweb.org</code>.
+      </p>
+      <ol>
+        <li><a href="#20240817">20240817: Goals</a></li>
+        <li><a href="#20240818">20240818: Screenshots</a></li>
+        <li><a href="#20240819">20240819: Archives</a></li>
+	<!--
+        <li><a href="#YYYYMMDD">YYYYMMDD: Description</a></li>
+	-->
+      </ol>
+    </section>
+    <section id="20240817">
+      <h2>20240817: Goals</h2>
+      <p>
+        My main goal with bebop.nekoweb.org is to create a 3D, interactive
+	exploration experience similar to the
+	<a href="https://cowboybebop.fandom.com/wiki/Outernet">outernet</a>
+	scene from Cowboy Bebop:
+      </p>
+      <iframe style="width:100%" src="https://www.youtube.com/embed/jfIsIjIVaDc"></iframe>
+      <p>
+        In the original, I assume that most of those 2D windows are sites you can
+	visit. In my version of the outernet, each of these windows is going to be
+	an actual <a href="https://nekoweb.org">Nekoweb</a> site. You'll be able
+        to click on the window to visit that Nekoweb site.
+      </p>
+      <p>
+        How to get a screenshot of each Nekoweb site? This part is already done
+	for me. On <a href="https://nekoweb.org/explore">nekoweb.org/explore</a>
+	you can see that most sites already have a generated screenshot. The URL
+	follows the pattern of <code>https://nekoweb.org/screenshots/&lt;username&gt;/index_large.jpg</code>
+        where <code>&lt;username&gt;</code> is a Nekoweb username.
+	<a href="https://nekoweb.org/screenshots/bebop/index_large.jpg">https://nekoweb.org/screenshots/bebop/index_large.jpg</a>
+	should give you the screenshot for <code>bebop.nekoweb.org</code> for example:
+      </p>
+      <img src="https://nekoweb.org/screenshots/bebop/index_large.jpg"/>
+      <p>
+        For the interactive 3D experience I'm going to use Three.js. The docs provide
+	an example that seems very close to what I need:
+	<a href="https://threejs.org/examples/#webgl_interactive_cubes_gpu">
+          https://threejs.org/examples/#webgl_interactive_cubes_gpu
+        </a>.
+      </p>
+    </section>
+    <section id="20240818">
+      <h2>20240818: Screenshots</h2>
+      <p>
+        Getting the screenshots for Nekoweb sites wasn't as easy as hoped. The CORS
+        policy on the <code>https://nekoweb.org/screenshots/&lt;username&gt;/index_large.jpg</code>
+        images is set to <code>https://nekoweb.org</code> which meant that
+        <code>https://bebop.nekoweb.org</code> scripts aren't allowed to fetch those
+        resources. So instead I just download my own copies of these images when I
+        build the site. I maybe could have asked the Nekoweb maintainers to loosen up the
+        CORS policy on these images but I wanted to just get this boring stuff over with.
+      </p>
+      <p>
+        By the way, I did get permission to use these screenshots. I proposed
+	the outernet idea on the Nekoweb Discord and dimden said
+	"you probably can if it's done nicely".
+      </p>
+      <p>
+        I also had to switch over to a deploy workflow based on GitHub Actions.
+	It took a while to get the big file API working but it's all good now.
+      </p>
+      <!-- TODO: Fix the snapshot -->
+      <p>
+        Basic UX is now working!
+      </p>
+      <img src="./20240818.png"/>
+    </section>
+    <section id="20240819">
+      <h2>20240819: Archives</h2>
+      <p>
+        I went down a small rabbithole trying to get the site working on the Wayback
+	Machine. I wanted to take snapshots as the site progresses. Turns out the
+	Wayback Machine is really bad at handling JS imports. That's annoying. I guess
+	I'll just do some screencasts from time to time.
+      </p>
+    </section>
+    <!--
+    <section id="YYYYMMDD">
+      <h2>YYYYMMDD: Description</h2>
+      <p>
+
+      </p>
+    </section>
+    -->
+  </body>
+</html>
