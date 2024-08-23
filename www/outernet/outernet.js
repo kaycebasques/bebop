@@ -1,7 +1,7 @@
 // https://github.com/mrdoob/three.js/blob/master/examples/webgl_interactive_cubes_gpu.html
 
 import * as THREE from 'three';
-import Stats from 'three/addons/libs/stats.module.js';
+// import Stats from 'three/addons/libs/stats.module.js';
 // import { TrackballControls } from 'three/addons/controls/TrackballControls.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 // import { FirstPersonControls } from 'three/addons/controls/FirstPersonControls.js';
@@ -12,7 +12,7 @@ import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js'
 
 // TODO: Fix the indentation of all this code.
 
-let container, stats;
+let container; // , stats;
 let camera, controls, scene, renderer;
 let pickingTexture, pickingScene;
 let highlightBox;
@@ -220,8 +220,8 @@ function init() {
   // controls.staticMoving = true;
   // controls.dynamicDampingFactor = 0.3;
 
-  stats = new Stats();
-  container.appendChild( stats.dom );
+  // stats = new Stats();
+  // container.appendChild( stats.dom );
 
   renderer.domElement.addEventListener('pointermove', onPointerMove);
   renderer.domElement.addEventListener('click', onClick);
@@ -268,7 +268,7 @@ function onPointerMove( e ) {
 function animate() {
 
   render();
-  stats.update();
+  // stats.update();
 
 }
 
