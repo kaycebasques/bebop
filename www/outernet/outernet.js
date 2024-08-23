@@ -173,7 +173,7 @@ function init() {
     const texture = textureLoader.load(url);
     const defaultMaterial = new THREE.MeshBasicMaterial({ map: texture });
     defaultMaterial.transparent = true;
-    defaultMaterial.opacity = 0.8;
+    defaultMaterial.opacity = 0.9;
 
     scene.add(new THREE.Mesh(geometry, defaultMaterial));
     pickingScene.add( new THREE.Mesh( geometry, pickingMaterial ) );
@@ -307,7 +307,7 @@ async function pick() {
     highlightBox.position.copy( data.position );
     highlightBox.rotation.copy( data.rotation );
     highlightBox.scale.copy( data.scale ).add( offset );
-    highlightBox.visible = true;
+    highlightBox.visible = false;
     // console.log(data.username);
     return data.username;
   } else {
