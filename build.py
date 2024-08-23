@@ -23,6 +23,7 @@ for username in usernames:
     if os.path.exists(screenshot_path):
         continue
     url = f'https://nekoweb.org/screenshots/{username}/index_large.jpg'
+    # TODO: Detect 404s
     response = requests.get(url, stream=True)
     with open(screenshot_path, 'wb') as f:
         shutil.copyfileobj(response.raw, f)
