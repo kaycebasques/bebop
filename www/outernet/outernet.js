@@ -33,7 +33,7 @@ function init() {
   container = document.getElementById( 'container' );
 
   camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 20000 );
-  camera.position.z = 10000;
+  camera.position.z = 5000;
 
   scene = new THREE.Scene();
   // Used a color picker on the original video to source this background color value
@@ -163,7 +163,8 @@ function init() {
 
       position: position,
       rotation: rotation,
-      scale: scale
+      scale: scale,
+      username: usernames[i]
 
     };
 
@@ -171,21 +172,26 @@ function init() {
     const url = `../screenshots/${usernames[i]}.jpg`;
     const texture = textureLoader.load(url);
     const defaultMaterial = new THREE.MeshBasicMaterial({ map: texture });
+    defaultMaterial.transparent = true;
+    defaultMaterial.opacity = 0.8;
 
     scene.add(new THREE.Mesh(geometry, defaultMaterial));
     pickingScene.add( new THREE.Mesh( geometry, pickingMaterial ) );
 
   }
 
-  // const mergedGeometry = BufferGeometryUtils.mergeGeometries( geometries );
+  const mergedGeometry = BufferGeometryUtils.mergeGeometries( geometries );
   // console.log(mergedGeometry);
 
   // scene.add( new THREE.Mesh( mergedGeometry, defaultMaterial ) );
-  // pickingScene.add( new THREE.Mesh( mergedGeometry, pickingMaterial ) );
+  pickingScene.add( new THREE.Mesh( mergedGeometry, pickingMaterial ) );
 
+  let highlightBoxMaterial = new THREE.MeshLambertMaterial({color: 0xffff00});
+  highlightBoxMaterial.transparent = true;
+  highlightBoxMaterial.opacity = 0.2;
   highlightBox = new THREE.Mesh(
     new THREE.BoxGeometry(width, height, depth),
-    new THREE.MeshLambertMaterial( { color: 0xffff00 } )
+    highlightBoxMaterial
   );
   scene.add( highlightBox );
 
@@ -217,7 +223,8 @@ function init() {
   stats = new Stats();
   container.appendChild( stats.dom );
 
-  renderer.domElement.addEventListener( 'pointermove', onPointerMove );
+  renderer.domElement.addEventListener('pointermove', onPointerMove);
+  renderer.domElement.addEventListener('click', onClick);
 
   // document.addEventListener('keydown', event => {
   //   const speed = 10;
@@ -239,6 +246,16 @@ function init() {
 
 }
 
+async function onClick(e) {
+  pointer.x = e.clientX;
+  pointer.y = e.clientY;
+  const username = await pick();
+  const url = `https://${username}.nekoweb.org`;
+  if (username) window.open(url, '_blank');
+}
+
+
+
 //
 
 function onPointerMove( e ) {
@@ -255,7 +272,7 @@ function animate() {
 
 }
 
-function pick() {
+async function pick() {
 
   // render the picking scene off-screen
   // set the view offset to represent just a single pixel under the mouse
@@ -281,40 +298,30 @@ function pick() {
   const pixelBuffer = new Int32Array( 4 );
 
   // read the pixel
-  renderer
-    .readRenderTargetPixelsAsync( pickingTexture, 0, 0, 1, 1, pixelBuffer )
-    .then( () => {
+  const result = await renderer.readRenderTargetPixelsAsync( pickingTexture, 0, 0, 1, 1, pixelBuffer );
 
-      const id = pixelBuffer[ 0 ];
-      if ( id !== - 1 ) {
-
-        // move our highlightBox so that it surrounds the picked object
-        const data = pickingData[ id ];
-        highlightBox.position.copy( data.position );
-        highlightBox.rotation.copy( data.rotation );
-        highlightBox.scale.copy( data.scale ).add( offset );
-        highlightBox.visible = true;
-
-      } else {
-
-        highlightBox.visible = false;
-
-      }
-
-    } );
-
+  const id = pixelBuffer[ 0 ];
+  if ( id !== -1 ) {
+    // move our highlightBox so that it surrounds the picked object
+    const data = pickingData[ id ];
+    highlightBox.position.copy( data.position );
+    highlightBox.rotation.copy( data.rotation );
+    highlightBox.scale.copy( data.scale ).add( offset );
+    highlightBox.visible = true;
+    // console.log(data.username);
+    return data.username;
+  } else {
+    highlightBox.visible = false;
+    return null;
+  }
 }
 
 function render() {
-
   controls.update();
-
   pick();
-
   renderer.setRenderTarget( null );
   renderer.render( scene, camera );
 
 }
-
 
 })();
