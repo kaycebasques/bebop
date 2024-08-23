@@ -5,6 +5,11 @@
     <title>the outernet is for the space cowboys</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
+      /* https://www.1001fonts.com/clip-font.html */
+      @font-face {
+        font-family: "Clip";
+        src: url("./clip/Clip.ttf");
+      }
       html {
         background-color: black;
         margin: 0;
@@ -31,23 +36,36 @@
         font-family: "Lobster";
       }
       #outernet {
-        font-family: "Monoton";
+        font-family: "Clip";
+        font-weight: 100;
+        font-size: 2em;
+        text-shadow:
+            0 0 7px white,
+            0 0 10px white,
+            0 0 21px white,
+            0 0 42px var(--color),
+            0 0 82px var(--color),
+            0 0 92px var(--color),
+            0 0 102px var(--color),
+            0 0 151px var(--color);
       }
       .sign {
         opacity: 1.0;
         color: var(--color);
       }
       .off {
-        opacity: 0.5
+        opacity: 0.5;
+        text-shadow: none;
       }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Monoton" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster"
+        rel="stylesheet">
   </head>
   <body>
     <h1>
-      <span id="preamble">Enter the...</span><br/>
+      <!-- <span id="preamble">Enter the...</span><br/><br/> -->
       <span id="outernet" >
         <a href="./outernet/">
           <span class="sign">O</span>
